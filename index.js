@@ -52,7 +52,6 @@ function estimate(obj){
 		return a + b;
 	})
 	budget.innerHTML =  "Travelling Budget" + '<br>' + "$" + expenses;
-	// budget.innerHTML = "$" + expenses;
 }	
 
 var submit = document.getElementById('submit')
