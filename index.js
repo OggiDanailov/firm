@@ -70,6 +70,8 @@ var b = document.querySelector(".B")
 var nameListYears = document.querySelector("#name-list-years");
 var yearsText = document.querySelector("#years-text")
 var heroes = []
+var img = document.getElementById('img')
+var imgList = document.getElementById('img-list')
 
 submit.addEventListener('click', function(){
 	$.ajax("https://bitbucket.org/OggiDanailov/firm/raw/2df585250847781831c5ab8ab4a7fdff8f5ef8fc/finances.json").then(function(response){
@@ -142,6 +144,25 @@ function printDetails(x){
 				nameListYears.innerHTML += x.employees[i].fname + " " + x.employees[i].lname + " " +  x.employees[i].city +" "+  worker.value + " years of expreience"+ "<br />" ;
 			}	
 		}	
+	}
+
+	if(getSelectedText() == 'Location'){
+		var city = worker.value
+		for(let i =0;i<x.employees.length;i++){
+			if(worker.value == x.employees[i].city){
+				imgList.innerHTML += x.employees[i].fname + " " + x.employees[i].lname + "<br>";	
+				for(let j = 0;j<x.images.length;j++){
+
+					if(Object.keys(x.images[j]) == city){
+						console.log(Object.values(x.images[j])[0])
+						img.style.backgroundImage = "url(" + Object.values(x.images[j])[0]  + ")";
+						img.style.backgroundSize = "100% 100%"	
+					}
+				}
+									
+			}
+		
+		}
 	}
 
 }

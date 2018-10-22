@@ -22,4 +22,16 @@
 .B {
   display: none; }
 
+.images {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr;
+  margin: 10px auto;
+  border: 2px solid;
+  width: 90%;
+  height: 200px; }
+
+#img-list {
+  padding: 10px;
+  border: 2px solid; }
+
 /*# sourceMappingURL=main.css.map */

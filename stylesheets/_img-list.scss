@@ -1,8 +1,13 @@
 .images {
 	display: grid;
-	gird-template-columns: 0.5fr 1.5fr;
+	grid-template-columns: 0.5fr 1.5fr;
 	margin: 10px auto;
 	border: 2px solid;
 	width: 90%;
-	min-height: 10px;
+	height: 200px;
+}
+
+#img-list {
+	padding: 10px;
+	border: 2px solid;
 }
