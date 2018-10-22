@@ -1,6 +1,7 @@
 var answer;
 $.ajax("https://bitbucket.org/OggiDanailov/firm/raw/2df585250847781831c5ab8ab4a7fdff8f5ef8fc/finances.json").then(function(response){
 	answer = JSON.parse(response)
+
 	createEmployees(answer)
 	estimate(answer)
 })
@@ -74,14 +75,20 @@ submit.addEventListener('click', function(){
 	$.ajax("https://bitbucket.org/OggiDanailov/firm/raw/2df585250847781831c5ab8ab4a7fdff8f5ef8fc/finances.json").then(function(response){
 	answer = JSON.parse(response)
 		printDetails(answer)
+		getSelectedText()
 	})
 })
 
+function getSelectedText() {
+    return list.options[list.selectedIndex].text;
+}
+
 function printDetails(x){
 	var result = 0;
-	if(list.options[0].text == 'Fname'){
-		// a.style.display = 'block';
-		// b.style.display = 'none';
+	if(getSelectedText() == 'Fname'){
+		console.log('Fname')
+		a.style.display = 'block';
+		b.style.display = 'none';
 		for(let i = 0;i<Object.keys(x.change).length; i++){
 			if(worker.value == Object.keys(x.change)[i]){
 				nameEmpl.innerHTML = Object.keys(x.change)[i]
@@ -97,9 +104,10 @@ function printDetails(x){
 		}
 	}
 
-	if(list.options[1].text == 'Lname'){
-		// a.style.display = 'block';
-		// b.style.display = 'none';
+	if(getSelectedText() == 'Lname'){
+		console.log("Lname")
+		a.style.display = 'block';
+		b.style.display = 'none';
 		for(let i = 0;i<x.employees.length;i++){
 			if(worker.value == x.employees[i].lname){
 				nameEmpl.innerHTML = x.employees[i].fname;
@@ -112,20 +120,37 @@ function printDetails(x){
 		}
 	}
 
-	if(list.options[2].text == 'Experience'){
-		console.log(list.option)
-			// a.style.display = 'none';
-			// b.style.display = 'block';		
+	if(getSelectedText() == 'Experience'){
+			a.style.display = 'none';
+			b.style.display = 'block';		
 		for(let i = 0;i<x.employees.length;i++){
 			if(worker.value == x.employees[i].experience){
 				yearsText.innerHTML = worker.value + " years of experience"
 				nameListYears.style.margin = '5px'
-				nameListYears.innerHTML += x.employees[i].fname + " " + x.employees[i].lname + " " +  x.employees[i].city +" "+  worker.value + " of expreience"+ "<br />" ;
+				nameListYears.innerHTML += x.employees[i].fname + " " + x.employees[i].lname + " " +  x.employees[i].city +" "+  worker.value + " years of expreience"+ "<br />" ;
+			}	
+		}	
+	}
+
+	if(getSelectedText() == 'Experience'){
+			a.style.display = 'none';
+			b.style.display = 'block';		
+		for(let i = 0;i<x.employees.length;i++){
+			if(worker.value == x.employees[i].experience){
+				yearsText.innerHTML = worker.value + " years of experience"
+				nameListYears.style.margin = '5px'
+				nameListYears.innerHTML += x.employees[i].fname + " " + x.employees[i].lname + " " +  x.employees[i].city +" "+  worker.value + " years of expreience"+ "<br />" ;
 			}	
 		}	
 	}
 
 }
+
+
+
+
+
+
 
 
 
