@@ -1,13 +1,14 @@
 .images {
-	display: grid;
+	display: none;
 	grid-template-columns: 0.5fr 1.5fr;
 	margin: 10px auto;
-	border: 2px solid;
+	border: 2px solid red;
 	width: 90%;
-	height: 200px;
+	min-height: 200px;
+	// background-color: salmon;
 }
 
 #img-list {
 	padding: 10px;
-	border: 2px solid;
+	// border: 2px solid;
 }

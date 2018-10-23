@@ -1,21 +1,24 @@
 var answer;
 $.ajax("https://bitbucket.org/OggiDanailov/firm/raw/2df585250847781831c5ab8ab4a7fdff8f5ef8fc/finances.json").then(function(response){
 	answer = JSON.parse(response)
-
 	createEmployees(answer)
 	estimate(answer)
+	chart(answer)		
 })
 
-var listAllEmployees = document.getElementById('listAllEmployees')
-var workerList = document.querySelector(".worker-list")
+var listAllEmployees = document.getElementById('listAllEmployees');
+var workerList = document.querySelector(".worker-list");
 var nameList = "";
+var statsButton = document.getElementById('stats-button');
+var stats = document.querySelector(".stats");
+var myCanvas = document.getElementById("myCanvas");
 
 function createEmployees(x){
 	for(let i = 0; i<x.employees.length; i++){
 		nameList = document.createElement('div');
 		nameList.style.border = '1px solid'
 		nameList.style.width = '150px'
-		nameList.style.backgroundColor = 'salmon'
+		// nameList.style.backgroundColor = 'salmon'
 		nameList.style.margin = '10px'
 		nameList.style.display = 'inline-block';
 		nameList.style.textAlign = 'center'
@@ -27,12 +30,41 @@ function createEmployees(x){
 }
 
 listAllEmployees.addEventListener('click', function(){
+    	statsButton.style.display = 'block'
 	 if (workerList.style.display === "none") {
         workerList.style.display = "block";
     } else {
         workerList.style.display = "none";
     }
 })
+var employeeName = [];
+var emploChange = new Function();
+
+function chart(x){
+	var myCanvas = document.getElementById('myCanvas').getContext('2d');	
+	statsButton.addEventListener('click', function(){
+		stats.style.display = 'block';
+		for(let i = 0;i<x.employees.length;i++){
+			employeeName.push(x.employees[i].fname + " " + x.employees[i].lname);
+		}
+			console.log(employeeName);
+	})
+	emploChange = function(){
+		return Object.values(x.change)
+	}
+}
+
+let myChart = new Chart(myCanvas,{
+	type: 'bar',
+	data: {
+		labels: employeeName,
+		datasets: [{
+			label: 'Money Spent on Business Trip',
+		data: emploChange()	
+		}]
+	}
+ })
+
 
 var budget = document.querySelector(".budget")
 function estimate(obj){
@@ -71,6 +103,7 @@ var yearsText = document.querySelector("#years-text")
 var heroes = []
 var img = document.getElementById('img')
 var imgList = document.getElementById('img-list')
+var images = document.querySelector('.images')
 
 submit.addEventListener('click', function(){
 	$.ajax("https://bitbucket.org/OggiDanailov/firm/raw/2df585250847781831c5ab8ab4a7fdff8f5ef8fc/finances.json").then(function(response){
@@ -121,6 +154,7 @@ function printDetails(x){
 		}
 	}
 
+	// Experience selector
 	if(getSelectedText() == 'Experience'){
 			a.style.display = 'none';
 			b.style.display = 'block';		
@@ -132,20 +166,9 @@ function printDetails(x){
 			}	
 		}	
 	}
-
-	if(getSelectedText() == 'Experience'){
-			a.style.display = 'none';
-			b.style.display = 'block';		
-		for(let i = 0;i<x.employees.length;i++){
-			if(worker.value == x.employees[i].experience){
-				yearsText.innerHTML = worker.value + " years of experience"
-				nameListYears.style.margin = '5px'
-				nameListYears.innerHTML += x.employees[i].fname + " " + x.employees[i].lname + " " +  x.employees[i].city +" "+  worker.value + " years of expreience"+ "<br />" ;
-			}	
-		}	
-	}
-
+	// Location selector
 	if(getSelectedText() == 'Location'){
+		images.style.display = 'grid';
 		var city = worker.value
 		for(let i =0;i<x.employees.length;i++){
 			if(worker.value == x.employees[i].city){
@@ -157,13 +180,13 @@ function printDetails(x){
 						img.style.backgroundImage = "url(" + Object.values(x.images[j])[0]  + ")";
 						img.style.backgroundSize = "100% 100%"	
 					}
-				}
-									
+				}									
 			}
-		
 		}
 	}
-
+	if(getSelectedText() != "Location"){
+		images.style.display = 'none';
+	}
 }
 
 

@@ -4,3 +4,16 @@
 	// height: 100px;
 	margin-top: 20px;	
 }
+
+
+#stats-button, .stats, #myCanvas {
+	display: none;
+}
+
+#myCanvas {
+	width: 50%;
+	border: 2px solid red;
+	margin: 20px auto;
+}
+
+
